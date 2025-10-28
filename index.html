@@ -1,102 +1,324 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>WoernyClicker</title>
-     <link href="style.css" rel="stylesheet">
-    
- </head>
-    <script>
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "firebase/app";
-        import { getAnalytics } from "firebase/analytics";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyBM19yBJqbaxKXLvEf3-D2B8bTfGeee5dE",
-          authDomain: "woernyclicker.firebaseapp.com",
-          projectId: "woernyclicker",
-          storageBucket: "woernyclicker.appspot.com",
-          messagingSenderId: "650889339792",
-          appId: "1:650889339792:web:4deaee1424c44361570915",
-          measurementId: "G-8VZXM0MJ0G"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-    </script>
-
-    
-    <body>
-    <script>     
-
-        let Lvl1 = 0;
-
-        let count = 0;
-        var save = 0;
-        let Logo1 = 0;
-        var WoernysPerSec = 0; /*Wie viel bekommt man pro Sekunde*/
-        let earningsByClick = 1; /*Wie viel pro Click*/
-
-        setInterval(function() { 
-            CheckForWPS();
-            }, 500);
-
-        function CheckForWPS() {
-            WoernysPerSec = (Lvl1/10);
-            WCs.innerHTML = WoernysPerSec;
-            WPs.innerHTML = WoernysPerSec;
-        }
-        
-        function Counter() {
-            save += earningsByClick;
-            count = save;
-            Count.innerHTML = save;
-            
-        }
-        
-        function LogoLvl1() {
-            if (count >= 10) {
-                count -= 10;
-                Lvl1 += 1;
-                setInterval(function() { 
-                    add(1);
-                }, 10000);
-            }
-            save = count;
-            Count.innerHTML = save;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webshop</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f4f8;
         }
 
-        function add(Wert) {
-            count += Wert;
-            save = count;
-            Count.innerHTML = save;
+        .header {
+            background-color: #1e88e5;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
-    </script>
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
 
-    <div>
-        <!-- Click on Woerny -->
-            <img class="pic" onclick="Counter()" src="pics/Hauptwoerny.JPG">
-    </div>
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0;
+            margin: 0;
+        }
 
-    <div class="coins">
-        <!-- Woernycoin counter -->
-            <img src="pics/favicon.png" width="50" height="50"> <p class="Count counter" id="Count">  0</p> 
-        <!-- Apple-Logo-lvl1 -->
-            <img class="großText" onclick="LogoLvl1()" src="pics/Apple-Logo-lvl1.PNG" width="50" height="50"> <p class="applecost">Costs: 10</p>
-        <!-- Woerny Coins per second -->
-        <div1>
-            <b>WoernyCoins/second: </b><b class="WCs" id="WCs">0</b>
-        </div1>
-    </div>
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
 
- </body>
- </html>
+        .nav-links a:hover {
+            color: #ffd600;
+        }
+
+        .cart-link {
+            background: #ffd600;
+            color: #1e88e5;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: linear-gradient(to bottom, rgba(30, 136, 229, 0.8), rgba(30, 136, 229, 0.8)), url('https://via.placeholder.com/1200x400') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: #ffd600;
+            color: #1e88e5;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #ffc107;
+        }
+
+        .products {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .products .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .product {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .product h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-to-cart {
+            background: #1e88e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #005cb2;
+        }
+
+        .about {
+            padding: 3rem 1rem;
+            background: #e3f2fd;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact {
+            padding: 3rem 1rem;
+            background: white;
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .footer {
+            background: #1e88e5;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .social-links {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ffd600;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">My Webshop</h1>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#cart" class="cart-link">Cart (0)</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Welcome to My Webshop</h2>
+            <p>Your one-stop shop for the best products!</p>
+            <a href="#products" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Our Products</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <img src="https://via.placeholder.com/150" alt="Product 1">
+                    <h3>Product 1</h3>
+                    <p>$19.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/150" alt="Product 2">
+                    <h3>Product 2</h3>
+                    <p>$29.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/150" alt="Product 3">
+                    <h3>Product 3</h3>
+                    <p>$39.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/150" alt="Product 4">
+                    <h3>Product 4</h3>
+                    <p>$49.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>We are a dedicated team committed to providing the best online shopping experience. Our wide range of products ensures you find exactly what you're looking for.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form class="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 My Webshop. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
