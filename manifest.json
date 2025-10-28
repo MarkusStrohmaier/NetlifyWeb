@@ -1,9 +1,0 @@
-{
-    "name": "Fishing",
-    "short_name": "Fishing",
-    "theme_color": "#010bff",
-    "background_color": "#010bff",
-    "display": "fullscreen",
-    "scope": "/",
-    "start_url": "/"
-  }
