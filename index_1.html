@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+
+    <style>
+
+    .backcolor {
+        background-color: gray;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .Infobox {
+        width: 70%;
+        background-color: rgb(0, 0, 109);
+        color: white;
+        padding: 2em;
+        font-size: 1.1em;
+        font-family: "Comic";
+        margin: 10px auto;
+    }
+
+    .distance {
+        margin-top: 20px;
+    }
+
+    .white {
+        color: white;
+    }
+
+    .weiter {
+        border: outset 3px green;
+        background-color: #006600;
+        color: #cccccc;
+        text-decoration: none; 
+        padding: 4px;
+        border-radius: 1em;
+        width: 100px;
+        display: flex;
+        text-align: center;
+        margin-top: 100px;
+        margin-left: 135px;
+    }
+
+    .bottom {
+        margin-bottom: 10px;
+    }
+
+    .green {
+        color: darkviolet;
+    }
+
+
+    </style>
+
+    <script>
+
+        let True = 0;
+        let richtig = new Audio ('richtig.wav');
+        let falsch = new Audio ('wrong.wav');
+        let Blase = new Audio ('Wasser.wav');
+        let counter;
+
+
+        function TrueAnswer() {
+            if (True == 0) {
+            let text = 'Stimmt';
+            right.innerHTML = text;
+            richtig.play();
+            True = 1;
+            counter = counter + 1;
+            }
+        }
+        
+        function WrongAnswer() {
+            if (True == 0) {
+            let text = 'leider Falsch';
+            Wrong.innerHTML = text;
+            falsch.play();
+            True = 1;
+            }
+        }
+        
+        function WaterSound() {
+            True = 2;
+        }
+
+        if (True == 2) {
+            Blase.play();
+            True = 0;
+        }
+
+
+    </script>
+
+</head>
+<body class="backcolor">
+
+    <a class="green" href="menu.html" target="plank">⬅ Menü</a>
+
+    <h1 class="center">Das große Quiz</h1>
+
+    <p class="Infobox center">Page: 1/10 
+    </p>
+
+    <p1 class="white">Welcher der Fische ist ein Hecht? Klicke auf den richtigen!</p1>
+
+    <div class="center">
+        <img onclick="WrongAnswer()" src="pics/Barsch.jpg" width="230" height="150">
+    </div>
+
+    <p class="center" id="right"> </p>
+    <p class="center" id="Wrong"> </p>
+
+    <div class="center distance">
+        <img onclick="TrueAnswer()" src="pics/Hecht.jpg" width="230" height="150">
+    </div>
+    
+    <div>
+        <a onklick="WaterSound()" class="weiter center distance" href="index_2.html">weiter</a>
+    </div>
+    
+    
+
+
+</body>
+</html>

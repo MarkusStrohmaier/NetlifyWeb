@@ -1,15 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menu</title>
+    <link rel="manifest" href="manifest.json">
+    
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>ETF Sparplan Rechner</title>
-    </head>
+    <style>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+        .backcolor {
+            background-color: black;
+        }
+
+        .white {
+            color: white;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .Dist_oben {
+            margin-top: 80px;
+        }
+
+        .left {
+            margin-left: 40px;
+        }
+
+        .Infobox {
+        width: 80%;
+        background-color: rgb(0, 0, 109);
+        color: white;
+        padding: 2em;
+        font-size: 1.1em;
+        font-family: "Comic";
+        margin: 60px auto;
+    }
+
+    .mod_choose {
+        color: white;
+        font-size: 1.1em;
+    }
+
+    .fish_pics {
+        border: outset 3px orange;
+        background-color: orange;
+        color: #000000;
+        text-decoration: none; 
+        padding: 6px;
+        border-radius: 1em;
+        width: 100px;
+        display: flex;
+        text-align: center;
+        margin-top: 30px;
+        margin-left: 130px;
+    }
+
+    .fish_pics1 {
+        border: outset 3px orange;
+        background-color: orange;
+        color: black;
+        text-decoration: none; 
+        padding: 6px;
+        border-radius: 1em;
+        width: 100px;
+        display: flex;
+        text-align: center;
+        margin-top: 30px;
+        margin-left: 130px;
+    }
+
+    .huge_distance {
+        margin-top: 200px;
+    }
+
+
+    </style>
+
+</head>
+
+<body class="backcolor white">
+
+    <h1 class="center white"> Menü
+    </h1>
+
+    <p class="Infobox center Dist_oben">Infos zur App: 
+        Diese App ist dazu gedacht verschiedene Fischarten kennenzulernen, und ein Grundwissen im Thema Angeln/Fische aufzubauen.
+        Viel Spaß!
+    </p>
+
+    <p class="mod_choose center">Wähle welchen Modus du Spielen möchtest!</p>
+
+    <nav>
+        <a class="fish_pics center" href="menu_pics.html">Fische erkennen</a> 
+        <a class="fish_pics1 center" href="menu_quests.html">Fragen</a>
+    </nav>
+
+    <p class="huge_distance">----------------------------------------------------------------</p>
+    
+
+
+
+
+
+    
+
+</body>
+</html>
