@@ -56,6 +56,7 @@
             max-width: 90vw;
             max-height: 90vh;
             border-radius: 0.5rem;
+            object-fit: contain; /* Stellt sicher, dass das Bild passt */
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
         }
 
@@ -140,10 +141,10 @@
             { 
                 id: 'buehnenlicht', 
                 title: 'Das verlorene Bühnenlicht (2025)', 
-                cover: 'images/image.png/800x600/darkblue900/cyan400?text=Cover:+B%C3%BChnenlicht',
+                cover: 'https://placehold.co/800x600/darkblue900/cyan400?text=Cover:+B%C3%BChnenlicht',
                 description: 'Eindrücke unserer neuesten Produktion, ein fesselndes Drama mit starken Charakteren.',
                 images: [
-                    { src: 'images/image.png', alt: 'Bühnenbild Akt 1' },
+                    { src: 'images/image.png/1200x800/darkblue800/cyan500?text=B%C3%BChnenbild+Akt+1', alt: 'Bühnenbild Akt 1' },
                     { src: 'https://placehold.co/800x1200/darkblue900/cyan400?text=Elvira+Szene', alt: 'Szene mit Elvira' },
                     { src: 'https://placehold.co/1000x700/darkblue700/light100?text=Ensemble+Szene', alt: 'Ensemble auf der Bühne' },
                     { src: 'https://placehold.co/900x600/darkblue800/cyan500?text=Schlussapplaus', alt: 'Schlussapplaus des Ensembles' },
@@ -234,7 +235,8 @@
             
             // Füge spezifische Event Listener nach dem Rendern hinzu (z.B. für die Galerie-Lightbox)
             if (page === 'Galerie' && currentAlbum) {
-                attachAlbumImageListeners();
+                // Verzögere die Listener-Zuweisung kurz, um sicherzustellen, dass das DOM vollständig gerendert ist
+                setTimeout(attachAlbumImageListeners, 50); 
             }
         }
 
@@ -397,8 +399,10 @@
                 return `<div class="p-8 text-center text-light-100 serif text-xl">Album nicht gefunden.</div>`;
             }
 
+            // Fügt einen data-src und data-alt Attribut zum Klick-Element hinzu
             const imageGrid = album.images.map(img => `
-                <div class="album-image relative overflow-hidden rounded-xl shadow-lg group cursor-pointer transform hover:scale-[1.03] transition duration-500">
+                <div class="album-image relative overflow-hidden rounded-xl shadow-lg group cursor-pointer transform hover:scale-[1.03] transition duration-500"
+                    data-src="${img.src}" data-alt="${img.alt}">
                     <img src="${img.src}" alt="${img.alt}" class="w-full h-64 object-cover transition duration-300 group-hover:opacity-80">
                     <div class="absolute inset-0 bg-darkblue-900 bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
                         <span class="text-light-50 text-lg font-bold serif p-2">
@@ -431,21 +435,33 @@
             `;
         }
         
-        // Fügt Event Listener für die Bilder im Album (Klick auf Bild) hinzu
+        // Fügt Event Listener für die Bilder im Album (Klick auf Bild) und die Lightbox hinzu
         function attachAlbumImageListeners() {
             const albumGrid = document.getElementById('album-image-grid');
             if (albumGrid) {
+                // Event Listener für Klick auf das Bild-Element
                 albumGrid.addEventListener('click', (e) => {
-                    const imgElement = e.target.closest('.album-image img');
-                    if (imgElement) {
-                        openLightbox(imgElement.src, imgElement.alt);
+                    // Finde das nächstgelegene Element mit den data-Attributen
+                    const imageContainer = e.target.closest('.album-image');
+                    if (imageContainer && imageContainer.dataset.src && imageContainer.dataset.alt) {
+                        openLightbox(imageContainer.dataset.src, imageContainer.dataset.alt);
                     }
                 });
             }
 
-            // Schließe Lightbox bei Klick auf Overlay
-            document.getElementById('lightbox-overlay').addEventListener('click', closeLightbox);
-            document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+            const lightboxOverlay = document.getElementById('lightbox-overlay');
+            const lightboxCloseButton = document.getElementById('lightbox-close');
+
+            // Schließe Lightbox bei Klick auf Overlay (nur wenn außerhalb des Bildinhalts geklickt wird)
+            lightboxOverlay.onclick = function(e) {
+                // Überprüfe, ob das geklickte Element exakt das Overlay ist
+                if (e.target === this) { 
+                    closeLightbox();
+                }
+            };
+
+            // Schließe Lightbox bei Klick auf den Button
+            lightboxCloseButton.onclick = closeLightbox; 
         }
 
         function openLightbox(src, alt) {
@@ -657,10 +673,11 @@
     
 
 <div id="lightbox-overlay" class="lightbox-overlay">
-        <div class="relative">
-            <button id="lightbox-close" class="absolute -top-10 right-0 text-4xl text-light-50 hover:text-cyan-500 transition">&times;</button>
+        <div class="relative flex flex-col items-center p-4">
+            <!-- Schließen-Button außerhalb des Inhalts, aber relativ zum Overlay-Inhalt positioniert -->
+            <button id="lightbox-close" class="absolute -top-8 right-0 md:-top-10 md:right-0 text-5xl text-light-50 hover:text-cyan-500 transition font-light leading-none">&times;</button>
             <img id="lightbox-img" src="" alt="" class="lightbox-content">
-            <p id="lightbox-caption" class="sans text-center text-light-50 mt-4 text-lg"></p>
+            <p id="lightbox-caption" class="sans text-center text-light-50 mt-4 text-lg max-w-[90vw]"></p>
         </div>
     </div>
 
